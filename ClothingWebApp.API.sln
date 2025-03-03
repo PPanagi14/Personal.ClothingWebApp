@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingWebApp.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingWebApp.Domain", "ClothingWebApp.Domain\ClothingWebApp.Domain.csproj", "{FBA628EE-6873-4DBD-87CB-CA50C0FBFEFA}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ClothingWebApp.UI", "ClothingWebApp.UI\ClothingWebApp.UI.esproj", "{0824DCAE-F521-711E-9415-78B4472BF45D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{FBA628EE-6873-4DBD-87CB-CA50C0FBFEFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA628EE-6873-4DBD-87CB-CA50C0FBFEFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA628EE-6873-4DBD-87CB-CA50C0FBFEFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0824DCAE-F521-711E-9415-78B4472BF45D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
