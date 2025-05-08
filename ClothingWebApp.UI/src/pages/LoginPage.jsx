@@ -1,5 +1,6 @@
 import  { useState } from 'react';
-import { TextField, Button, Box, Typography, Container, Grid } from '@mui/material';
+import { TextField, Button, Box, Typography, Container  } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           <Grid container spacing={2}>
             {/* Email Input */}
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label="Email"
@@ -41,7 +42,7 @@ const Login = () => {
             </Grid>
 
             {/* Password Input */}
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label="Password"
@@ -53,7 +54,7 @@ const Login = () => {
             </Grid>
 
             {/* Login Button */}
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Button
                 fullWidth
                 type="submit"
