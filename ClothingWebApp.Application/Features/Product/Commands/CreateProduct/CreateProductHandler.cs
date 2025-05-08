@@ -1,24 +1,35 @@
 ﻿using ClothingWebApp.Application.Features.Product.DTOs;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using ClothingWebApp.Domain.Interfaces;
+using ClothingWebApp.Domain.Entities;
+using AutoMapper;
+
+
 
 namespace ClothingWebApp.Application.Features.Product.Commands.CreateProduct
 {
     public class CreateProductHandler : IRequestHandler<CreateProductCommand, ProductDto>
     {
-        Task<ProductDto> IRequestHandler<CreateProductCommand, ProductDto>.Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        private IProductRepository _productRepository;
+        public CreateProductHandler(IProductRepository productRepository)
         {
-            return Task.FromResult(new ProductDto
+            _productRepository = productRepository;
+        }
+
+        async Task<ProductDto> IRequestHandler<CreateProductCommand, ProductDto>.Handle(CreateProductCommand productCommand, CancellationToken cancellationToken)
+        {
+            var product = new Product
             {
-                Description = "Class",  // Example values
-                Name = "Class",
-                Price = 12
-            });
+                Name = productCommand.Name,
+                Price = productCommand.Price,
+                Description = productCommand.Description,
+                // Map other fields as necessary
+            };
+
+            var dbProduct = await _productRepository.AddAsync(product);
+
+            return dbProduct;
+
         }
     }
 }

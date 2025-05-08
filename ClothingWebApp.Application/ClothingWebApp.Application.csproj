@@ -4,6 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<NuGetAudit>True</NuGetAudit>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +20,10 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ClothingWebApp.Domain\ClothingWebApp.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

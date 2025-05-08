@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ClothingWebApp.Application.Services;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+
+
 
 namespace ClothingWebApp.Application
 {
@@ -9,8 +14,10 @@ namespace ClothingWebApp.Application
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IProductService, ProductService>();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-
+            services.AddMediatR(cfg =>
+            {
+                cfg.AsScoped(); // Example configuration to avoid the error
+            }, Assembly.GetExecutingAssembly()); // Specify Assembly explicitly to resolve ambiguity
         }
     }
 }
