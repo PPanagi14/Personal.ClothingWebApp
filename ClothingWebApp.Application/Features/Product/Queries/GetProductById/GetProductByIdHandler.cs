@@ -1,10 +1,5 @@
 ﻿using ClothingWebApp.Application.Features.Product.DTOs;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClothingWebApp.Application.Features.Product.Queries.GetProductById
 {
@@ -16,7 +11,7 @@ namespace ClothingWebApp.Application.Features.Product.Queries.GetProductById
             {
                 Description = "Class",  // Example values
                 Name = "Class",
-                Price = 12
+                Cost = 12
             });
         }
     }

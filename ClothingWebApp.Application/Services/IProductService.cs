@@ -4,6 +4,6 @@ namespace ClothingWebApp.Application.Services
 {
     public interface IProductService
     {
-        Task<IList<Product>> GetProducts();
+        Task<IList<ProductModel>> GetProducts();
     }
 }

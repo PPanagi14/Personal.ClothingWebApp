@@ -1,5 +1,7 @@
 ﻿using ClothingWebApp.Application.Services;
+using ClothingWebApp.Domain.Interfaces;
 using ClothingWebApp.Infrastructure.Persistence;
+using ClothingWebApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,9 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddTransient<IProductService, ProductService>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

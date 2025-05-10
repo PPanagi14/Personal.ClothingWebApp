@@ -1,35 +1,35 @@
-﻿using ClothingWebApp.Application.Features.Product.DTOs;
-using MediatR;
-using ClothingWebApp.Domain.Interfaces;
+﻿using AutoMapper;
+using ClothingWebApp.Application.Features.Product.Commands.CreateProduct;
+using ClothingWebApp.Application.Features.Product.DTOs;
 using ClothingWebApp.Domain.Entities;
-using AutoMapper;
+using ClothingWebApp.Domain.Interfaces;
+using MediatR;
 
-
-
-namespace ClothingWebApp.Application.Features.Product.Commands.CreateProduct
+public class CreateProductHandler : IRequestHandler<CreateProductCommand, ProductDto>
 {
-    public class CreateProductHandler : IRequestHandler<CreateProductCommand, ProductDto>
+    private readonly IProductRepository _productRepository;
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;   
+
+    public CreateProductHandler(IProductRepository productRepository, IMapper mapper,IUnitOfWork unitOfWork)
     {
-        private IProductRepository _productRepository;
-        public CreateProductHandler(IProductRepository productRepository)
+        _productRepository = productRepository;
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    {
+        var product = _mapper.Map<Product>(request);
+
+        var savedProduct = await _productRepository.AddAsync(product, cancellationToken);
+        if (savedProduct == null)
         {
-            _productRepository = productRepository;
+            throw new Exception("Failed to create product");
         }
 
-        async Task<ProductDto> IRequestHandler<CreateProductCommand, ProductDto>.Handle(CreateProductCommand productCommand, CancellationToken cancellationToken)
-        {
-            var product = new Product
-            {
-                Name = productCommand.Name,
-                Price = productCommand.Price,
-                Description = productCommand.Description,
-                // Map other fields as necessary
-            };
+        await _unitOfWork.CommitAsync(cancellationToken);
 
-            var dbProduct = await _productRepository.AddAsync(product);
-
-            return dbProduct;
-
-        }
+        return _mapper.Map<ProductDto>(savedProduct);
     }
 }

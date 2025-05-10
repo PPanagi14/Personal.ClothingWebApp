@@ -9,15 +9,15 @@ namespace ClothingWebApp.Application.Services
 {
     public class ProductService : IProductService
     {
-        public Task<IList<Product>> GetProducts()
+        public Task<IList<ProductModel>> GetProducts()
         {
-            var products = new List<Product>
+            var products = new List<ProductModel>
             {
                 new() { Id = 1, Name = "T-Shirt", Cost = 20 },
                 new() { Id = 2, Name = "Jeans", Cost = 50 }
             };
 
-            return Task.FromResult((IList<Product>)products);
+            return Task.FromResult((IList<ProductModel>)products);
         }
     }
 }
