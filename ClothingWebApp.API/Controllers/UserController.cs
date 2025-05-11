@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ClothingWebApp.Application.Features.User.Commands.CreateUser;
+using ClothingWebApp.Domain.Entities;
+using ClothingWebApp.Application.Features.User.Queries.GetAllUsers;
 
 
 namespace ClothingWebApp.API.Controllers
@@ -13,11 +15,13 @@ namespace ClothingWebApp.API.Controllers
         {
             _mediator = mediator;
         }
-        //[HttpGet("GetAllUsers")]
-        //public IActionResult GetAllUsers()
-        //{
-        //    return Ok(_userService.GetUsers());
-        //}
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var query = new GetAllUsersQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetUserById(long id)
         //{
