@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\User\Queries\" />
+	  <Folder Include="Features\Product\Queries\GetAllProducts\" />
 	</ItemGroup>
 
 </Project>
