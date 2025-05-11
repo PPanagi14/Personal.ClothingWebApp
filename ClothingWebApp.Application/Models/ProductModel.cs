@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClothingWebApp.Application.Models
 {
-    public class Product
+    public class ProductModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

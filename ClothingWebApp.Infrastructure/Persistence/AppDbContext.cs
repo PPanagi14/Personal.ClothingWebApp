@@ -9,6 +9,7 @@ namespace ClothingWebApp.Infrastructure.Persistence
         {
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
         //public DbSet<Category> Categories { get; set; }
         //public DbSet<Brand> Brands { get; set; }
         //public DbSet<Size> Sizes { get; set; }
@@ -25,6 +26,7 @@ namespace ClothingWebApp.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().ToTable("Products");
+            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
             //    modelBuilder.Entity<Category>().ToTable("Categories");

@@ -10,7 +10,7 @@ namespace ClothingWebApp.Application.Features.Product.DTOs
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public decimal Cost { get; set; }
 
     }
 }

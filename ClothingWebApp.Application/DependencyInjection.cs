@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ClothingWebApp.Application.Services;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using AutoMapper;
 using System.Reflection;
-
 
 
 namespace ClothingWebApp.Application
@@ -14,10 +12,15 @@ namespace ClothingWebApp.Application
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IProductService, ProductService>();
+
+            // Register MediatR handlers
             services.AddMediatR(cfg =>
             {
-                cfg.AsScoped(); // Example configuration to avoid the error
-            }, Assembly.GetExecutingAssembly()); // Specify Assembly explicitly to resolve ambiguity
+                cfg.AsScoped();
+            }, Assembly.GetExecutingAssembly());
+
+            // Register AutoMapper profiles
+            services.AddAutoMapper(Assembly.GetEntryAssembly());
         }
     }
 }
