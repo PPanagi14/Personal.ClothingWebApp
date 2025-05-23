@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace ClothingWebApp.Application.Features.Product.DTOs
+namespace ClothingWebApp.Application.Features.Products.DTOs
 {
     public class ProductDto
     {

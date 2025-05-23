@@ -1,8 +1,7 @@
 ﻿
-using ClothingWebApp.Application.Features.Product.Commands.CreateProduct;
-using ClothingWebApp.Application.Features.Product.DTOs;
-using ClothingWebApp.Application.Features.Product.Queries.GetProductById;
-using ClothingWebApp.Application.Models;
+using ClothingWebApp.Application.Features.Products.Commands.CreateProduct;
+using ClothingWebApp.Application.Features.Products.DTOs;
+using ClothingWebApp.Application.Features.Products.Queries.GetProductById;
 using ClothingWebApp.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

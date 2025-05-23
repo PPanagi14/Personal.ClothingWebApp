@@ -1,7 +1,7 @@
-﻿using ClothingWebApp.Application.Features.Product.DTOs;
+﻿using ClothingWebApp.Application.Features.Products.DTOs;
 using MediatR;
 
-namespace ClothingWebApp.Application.Features.Product.Commands.CreateProduct
+namespace ClothingWebApp.Application.Features.Products.Commands.CreateProduct
 {
     public class CreateProductCommand :IRequest<ProductDto>
     {
