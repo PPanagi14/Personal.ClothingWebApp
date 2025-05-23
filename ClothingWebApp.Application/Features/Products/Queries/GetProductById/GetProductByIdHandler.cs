@@ -1,7 +1,7 @@
-﻿using ClothingWebApp.Application.Features.Product.DTOs;
+﻿using ClothingWebApp.Application.Features.Products.DTOs;
 using MediatR;
 
-namespace ClothingWebApp.Application.Features.Product.Queries.GetProductById
+namespace ClothingWebApp.Application.Features.Products.Queries.GetProductById
 {
     public class GetProductByIdHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
     {

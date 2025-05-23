@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using ClothingWebApp.Application.Features.Product.Commands.CreateProduct;
+using ClothingWebApp.Application.Features.Products.Commands.CreateProduct;
 using ClothingWebApp.Domain.Entities;
-using ClothingWebApp.Application.Features.Product.DTOs;
-using ClothingWebApp.Application.Features.User.Commands.CreateUser;
-using ClothingWebApp.Application.Features.User.DTOs;
+using ClothingWebApp.Application.Features.Products.DTOs;
+using ClothingWebApp.Application.Features.Users.Commands.CreateUser;
+using ClothingWebApp.Application.Features.Users.DTOs;
+using ClothingWebApp.Application.Features.Users.Commands.RegisterUser;
 
 public class MappingProfile : Profile
 {
@@ -12,6 +13,7 @@ public class MappingProfile : Profile
         // Maps command to entity
         CreateMap<CreateProductCommand, Product>();
         CreateMap<CreateUserCommand, User>();
+        CreateMap<RegisterUserCommand, User>();
 
 
         // Maps entity to DTO

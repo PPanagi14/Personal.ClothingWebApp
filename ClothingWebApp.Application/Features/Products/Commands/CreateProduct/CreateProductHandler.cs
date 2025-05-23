@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ClothingWebApp.Application.Features.Product.Commands.CreateProduct;
-using ClothingWebApp.Application.Features.Product.DTOs;
+using ClothingWebApp.Application.Features.Products.Commands.CreateProduct;
+using ClothingWebApp.Application.Features.Products.DTOs;
 using ClothingWebApp.Domain.Entities;
 using ClothingWebApp.Domain.Interfaces;
 using MediatR;

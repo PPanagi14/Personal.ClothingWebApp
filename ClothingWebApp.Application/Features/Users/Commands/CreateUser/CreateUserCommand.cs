@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using ClothingWebApp.Application.Features.Users.DTOs;
 
-namespace ClothingWebApp.Application.Features.User.DTOs
+namespace ClothingWebApp.Application.Features.Users.Commands.CreateUser
 {
-    public class UserDto
+    public class CreateUserCommand : IRequest<UserDto>
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -17,6 +14,5 @@ namespace ClothingWebApp.Application.Features.User.DTOs
         public string? City { get; set; }
         public string? State { get; set; }
         public string? ZipCode { get; set; }
-
     }
 }

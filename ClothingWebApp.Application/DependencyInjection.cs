@@ -3,6 +3,8 @@ using ClothingWebApp.Application.Services;
 using MediatR;
 using AutoMapper;
 using System.Reflection;
+using ClothingWebApp.Application.Behaviors;
+using FluentValidation;
 
 
 namespace ClothingWebApp.Application
@@ -21,6 +23,12 @@ namespace ClothingWebApp.Application
 
             // Register AutoMapper profiles
             services.AddAutoMapper(Assembly.GetEntryAssembly());
+
+            // Register all validators automatically
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Register the ValidationBehavior pipeline
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         }
     }
 }
