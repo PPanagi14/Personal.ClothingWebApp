@@ -28,8 +28,4 @@
 	  <ProjectReference Include="..\ClothingWebApp.Domain\ClothingWebApp.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Features\Products\Queries\GetAllProducts\" />
-	</ItemGroup>
-
 </Project>
