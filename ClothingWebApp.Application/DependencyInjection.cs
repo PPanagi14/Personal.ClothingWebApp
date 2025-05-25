@@ -13,7 +13,6 @@ namespace ClothingWebApp.Application
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<IProductService, ProductService>();
 
             // Register MediatR handlers
             services.AddMediatR(cfg =>

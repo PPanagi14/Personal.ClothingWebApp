@@ -2,6 +2,7 @@
 using ClothingWebApp.Domain.Interfaces;
 using ClothingWebApp.Infrastructure.Persistence;
 using ClothingWebApp.Infrastructure.Repositories;
+using ClothingWebApp.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,9 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+
 
         return services;
     }

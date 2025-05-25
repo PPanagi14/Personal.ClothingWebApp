@@ -14,6 +14,7 @@ namespace ClothingWebApp.Domain.Entities
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
         public string ZipCode { get; set; } = string.Empty;
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
         // Navigation properties
         //public ICollection<Order> Orders { get; set; }
         //public ICollection<Cart> Carts { get; set; }
