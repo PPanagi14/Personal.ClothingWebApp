@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingWebApp.API.Controllers
 {
+    [Route("api/auth")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -16,7 +18,7 @@ namespace ClothingWebApp.API.Controllers
         }
        
 
-        [HttpPost("RegisterUser")]
+        [HttpPost("registerUser")]
         public Task<UserDto> RegisterUser([FromBody] RegisterUserCommand user)
         {
             var response = _mediator.Send(user);
