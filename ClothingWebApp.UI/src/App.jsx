@@ -1,12 +1,11 @@
-import './App.css' // Import specific styles for the App component
-import Login from '../src/pages/LoginPage'; // Import the Login component
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
-
-export default App
+export default App;
