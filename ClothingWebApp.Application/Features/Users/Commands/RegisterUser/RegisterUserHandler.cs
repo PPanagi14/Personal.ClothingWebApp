@@ -12,17 +12,13 @@ namespace ClothingWebApp.Application.Features.Users.Commands.RegisterUser
     
     public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, UserDto>
     {
-        private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RegisterUserHandler(IMapper mapper, IUnitOfWork unitOfWork,IUserRepository userRepository, IRoleRepository roleRepository)
+        public RegisterUserHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
         }
         public async Task<UserDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
@@ -34,7 +30,7 @@ namespace ClothingWebApp.Application.Features.Users.Commands.RegisterUser
                 try
                 {
                     // Attempt to find existing user
-                    var existingUser = await _userRepository.GetUserByEmailAsync(request.Email);
+                    var existingUser = await _unitOfWork.Users.GetUserByEmailAsync(request.Email);
                     throw new Exception("A user with this email already exists.");
                 }
                 catch (InvalidOperationException)
@@ -46,13 +42,13 @@ namespace ClothingWebApp.Application.Features.Users.Commands.RegisterUser
                 newUser.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
                 // Assign default role
-                var defaultUserRole = await _roleRepository.GetByNameAsync("User");
+                var defaultUserRole = await _unitOfWork.Roles.GetByNameAsync("User");
                 newUser.UserRoles = new List<UserRole>
                 {
                     new UserRole { RoleId = defaultUserRole.Id }
                 };
 
-                var savedUser = await _userRepository.AddAsync(newUser, cancellationToken);
+                var savedUser = await _unitOfWork.Users.AddAsync(newUser, cancellationToken);
 
                 if (savedUser == null)
                     throw new Exception("Failed to create user.");

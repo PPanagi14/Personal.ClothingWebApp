@@ -7,13 +7,11 @@ using MediatR;
 
 public class CreateProductHandler : IRequestHandler<CreateProductCommand, ProductDto>
 {
-    private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;   
 
-    public CreateProductHandler(IProductRepository productRepository, IMapper mapper,IUnitOfWork unitOfWork)
+    public CreateProductHandler(IMapper mapper,IUnitOfWork unitOfWork)
     {
-        _productRepository = productRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
@@ -22,7 +20,7 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Produc
     {
         var product = _mapper.Map<Product>(request);
 
-        var savedProduct = await _productRepository.AddAsync(product, cancellationToken);
+        var savedProduct = await _unitOfWork.Products.AddAsync(product, cancellationToken);
         if (savedProduct == null)
         {
             throw new Exception("Failed to create product");

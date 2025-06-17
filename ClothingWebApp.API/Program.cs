@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
 });
 
 // Swagger/OpenAPI setup
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {

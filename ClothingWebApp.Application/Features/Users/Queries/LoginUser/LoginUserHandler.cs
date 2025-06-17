@@ -18,35 +18,40 @@ namespace ClothingWebApp.Application.Features.Users.Queries.LoginUser
 {
     public class LoginUserHandler : IRequestHandler<LoginUserQuery, LoginUserResult>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public LoginUserHandler(IUserRepository userRepository, IConfiguration configuration, IMapper mapper, ITokenService tokenService)
+        public LoginUserHandler( IMapper mapper, ITokenService tokenService,IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
-            _configuration = configuration;
             _mapper = mapper;
             _tokenService = tokenService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<LoginUserResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var user = await _userRepository.GetUserByEmailAsync(request.Email);
+                var user = await _unitOfWork.Users.GetUserByEmailAsync(request.Email);
+                var isValid = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
                 if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                     throw new InvalidCredentialsException();
 
-                var claims = new[]
+                var userRoles = await _unitOfWork.UserRoles.GetUserRolesByUserId(user.Id);
+
+                var claims = new List<Claim>
                 {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.FirstName)
-        };
-                var key = new SymmetricSecurityKey(
-               Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    new Claim("email", user.Email),
+                    new Claim("id", user.Id.ToString()),
+                    new Claim("name", $"{user.FirstName} {user.LastName}")
+
+                };
+
+                foreach (var role in userRoles)
+                {
+                    claims.Add(new Claim("role", role.Name));
+
+                }
 
                 var token = _tokenService.GenerateToken(claims);
 
@@ -60,10 +65,10 @@ namespace ClothingWebApp.Application.Features.Users.Queries.LoginUser
             }
             catch (Exception ex)
             {
+                // Optionally log the error
                 throw new Exception("Login failed", ex);
             }
-
-
         }
+
     }
 }
