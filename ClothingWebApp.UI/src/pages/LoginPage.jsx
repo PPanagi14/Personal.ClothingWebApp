@@ -119,6 +119,18 @@ const Login = () => {
                 </Button>
 
               </Grid>
+              <Grid size={12}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={() => navigate("/chatBot")}
+                  disabled={loading}
+                >
+                  ChatBot
+                </Button>
+
+              </Grid>
             </Grid>
           </form>
         </Box>
