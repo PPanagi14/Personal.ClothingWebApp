@@ -5,10 +5,13 @@ namespace ClothingWebApp.Domain.Common
     public abstract class BaseEntity
     {
         public Guid PublicId { get; set; } = Guid.NewGuid();
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+
         public bool IsDeleted { get; set; } = false;
+
+        public string? CreatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
 
         // Add domain event handling support (for DDD)
         private readonly List<INotification> _domainEvents = [];

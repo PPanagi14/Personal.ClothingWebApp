@@ -2,6 +2,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ChatBot from "../pages/ChatBotPage";
 // import HomePage from "../pages/HomePage";
 // import ProtectedRoute from "./ProtectedRoute";
 
@@ -11,6 +12,7 @@ function AppRoutes() {
         <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/chatBot" element={<ChatBot />} />
       {/* <Route
         path="/"
         element={
