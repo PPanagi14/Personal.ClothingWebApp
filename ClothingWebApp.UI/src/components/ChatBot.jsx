@@ -1,17 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, Sparkles } from "lucide-react";
-import { Button } from  "@mui/material";;
-import { TextField } from  "@mui/material";;
+import { Button } from  "@mui/material";
+import { TextField } from  "@mui/material";
 import { ChatMessage } from "./ChatMessage";
+import { askOllama } from "../auth/authService";
 
-const mockResponses = [
-  "Hello! I'm here to help you with anything you need. How can I assist you today?",
-  "That's a great question! Let me think about that for a moment...",
-  "I'd be happy to help you with that. Could you provide a bit more detail?",
-  "Interesting! Here's what I think about that topic...",
-  "Thanks for sharing that with me. Based on what you've told me, I'd suggest...",
-  "I understand what you're looking for. Let me provide you with some helpful information.",
-];
+
 
 export const ChatBot = () => {
   const [messages, setMessages] = useState([
@@ -34,33 +28,7 @@ export const ChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
 
-    const userMessage = {
-      id: Date.now().toString(),
-      text: inputValue,
-      isUser: true,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
-    setIsTyping(true);
-
-    // Simulate bot response delay
-    setTimeout(() => {
-      const botResponse = {
-        id: (Date.now() + 1).toString(),
-        text: mockResponses[Math.floor(Math.random() * mockResponses.length)],
-        isUser: false,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-
-      setMessages((prev) => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1000 + Math.random() * 2000);
-  };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -68,6 +36,47 @@ export const ChatBot = () => {
       handleSendMessage();
     }
   };
+  
+  const handleSendMessage = async () => {
+  if (!inputValue.trim()) return;
+
+  const userMessage = {
+      id: Date.now().toString(),
+      text: inputValue,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+  setMessages(prev => [...prev, userMessage]);
+  setInputValue("");
+  setIsTyping(true);
+
+  try {
+    const res= await askOllama(userMessage.text)
+    debugger
+    if (!res.status==200) throw new Error("Network error");
+
+    const data = await res.data;
+    const botResponse = {
+      id: Date.now().toString(),
+      text: data.response,
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+    setMessages(prev => [...prev, botResponse]);
+  } catch (err) {
+    console.error(err);
+    setMessages(prev => [...prev, {
+      id: "error",
+      text: "Something went wrong 🤖",
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }]);
+  } finally {
+    setIsTyping(false);
+  }
+};
+
+
 
   return (
     <div className="w-full max-w-2xl mx-auto h-[600px] bg-gradient-chat backdrop-blur-lg border border-chat-border rounded-3xl shadow-chat overflow-hidden animate-fade-in">
